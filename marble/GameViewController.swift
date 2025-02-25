@@ -1,42 +1,31 @@
-//
-//  GameViewController.swift
-//  marble
-//
-//  Created by Maxwell Young on 25/02/2025.
-//
-
 import UIKit
 import SpriteKit
 import GameplayKit
 
 class GameViewController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let view = self.view as! SKView? {
-            // Load the SKScene from 'GameScene.sks'
-            if let scene = SKScene(fileNamed: "GameScene") {
-                // Set the scale mode to scale to fit the window
-                scene.scaleMode = .aspectFill
-                
-                // Present the scene
-                view.presentScene(scene)
-            }
+            // Create the game scene
+            let scene = GameScene(size: view.bounds.size)
+            scene.scaleMode = .aspectFill
             
+            // Present the scene
+            view.presentScene(scene)
+            
+            // Configure the view
             view.ignoresSiblingOrder = true
             
+            // Debug options (remove for production)
             view.showsFPS = true
             view.showsNodeCount = true
+            view.showsPhysics = false
         }
     }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            return .allButUpsideDown
-        } else {
-            return .all
-        }
+        return .portrait
     }
 
     override var prefersStatusBarHidden: Bool {
